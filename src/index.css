@@ -1,69 +1,62 @@
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
+* {
+	font-family: "Inter", sans-serif;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
+@layer components {
+	.btn {
+		@apply rounded-md px-6 py-2;
+	}
 
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
+	.btn-primary {
+		@apply bg-primary-header font-semibold text-white transition-colors duration-200 hover:bg-slate-700;
+	}
+	.btn-alt {
+		@apply bg-white font-semibold text-primary-main-headdings transition-colors duration-200 hover:bg-gray-300;
+	}
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
+	.heading {
+		@apply text-3xl font-bold text-primary-main-headdings;
+	}
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
+	.brands_list {
+		@apply flex w-full shrink-0 items-center justify-around gap-8;
+	}
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+	.footer_list {
+		@apply mx-auto max-w-fit space-y-4 text-center sm:mx-0 sm:text-start;
+	}
+	.footer_list > p {
+		@apply mb-4 font-bold uppercase text-primary-headdings;
+	}
+	.footer_list > ul {
+		@apply space-y-2;
+	}
+	.footer_list li {
+		@apply cursor-pointer text-primary-text hover:underline;
+	}
+
+	.nav_btn {
+		@apply rounded-md p-1.5 ring-primary-text transition duration-200 hover:ring-2;
+	}
+
+	.nav_link {
+		@apply border-b-2 border-b-transparent transition-colors duration-200 hover:border-b-primary-text;
+	}
+	.nav_link.active {
+		@apply border-b-primary-text;
+	}
+
+	.sign-out {
+		@apply flex w-fit cursor-pointer gap-4;
+	}
+	.sign-out > button {
+		@apply px-8 py-2;
+	}
 }
