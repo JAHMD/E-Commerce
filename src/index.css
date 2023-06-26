@@ -26,7 +26,7 @@
 	}
 
 	.brands_list {
-		@apply flex w-full shrink-0 items-center justify-around gap-8;
+		@apply flex w-full min-w-[800px] shrink-0 items-center justify-around;
 	}
 
 	.footer_list {
