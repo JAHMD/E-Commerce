@@ -25,13 +25,13 @@ const AllProducts = () => {
 	);
 
 	return (
-		<section>
+		<section className="container">
 			{isLoading ? (
 				<LoaderComponent />
 			) : error ? (
 				<div>error</div>
 			) : (
-				<div>
+				<div className="grid grid-cols-repeat gap-8">
 					{data?.map((product) => (
 						<ProductCard key={product.id} {...product} />
 					))}

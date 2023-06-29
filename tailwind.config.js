@@ -20,7 +20,7 @@ export default {
 				padding: "1.5rem",
 			},
 			gridTemplateColumns: {
-				repeat: "repeat(auto-fit, minmax(220px, 1fr))",
+				repeat: "repeat(auto-fit, minmax(230px, 1fr))",
 			},
 			fontFamily: {
 				inter: ["Inter", "sans-serif"],
