@@ -3,6 +3,9 @@ export default {
 	content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
 	theme: {
 		extend: {
+			boxShadow: {
+				light: "3px 3px 6px 0 hsl(0deg 0% 0% / 8%)",
+			},
 			colors: {
 				primary: {
 					header: "hsl(214, 22%, 15%)",
@@ -17,7 +20,7 @@ export default {
 				padding: "1.5rem",
 			},
 			gridTemplateColumns: {
-				repeat: "repeat(auto-fit, minmax(200px, 1fr))",
+				repeat: "repeat(auto-fit, minmax(220px, 1fr))",
 			},
 			fontFamily: {
 				inter: ["Inter", "sans-serif"],

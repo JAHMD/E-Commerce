@@ -9,8 +9,8 @@ const Home = () => {
 	).href;
 
 	return (
-		<section className="py-10">
-			<div className="container">
+		<>
+			<section className="container">
 				<div className="relative h-[500px] overflow-hidden rounded-lg">
 					<img
 						loading="lazy"
@@ -22,15 +22,15 @@ const Home = () => {
 						<p className="px:4 mb-6 w-full text-3xl font-bold sm:text-4xl md:px-8 lg:text-6xl">
 							Level up your style with our summer collections.
 						</p>
-						<NavLink to="/shop" className="btn btn-alt">
+						<NavLink to="/all-products" className="btn btn-alt">
 							Shop now
 						</NavLink>
 					</div>
 				</div>
-			</div>
+			</section>
 			<Brands />
 			<CategoriesSection />
-		</section>
+		</>
 	);
 };
 

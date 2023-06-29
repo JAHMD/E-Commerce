@@ -15,8 +15,8 @@ const Navbar = () => {
 					<NavLink to="/" end className="nav_link">
 						Home
 					</NavLink>
-					<NavLink to="/shop" className="nav_link">
-						Products
+					<NavLink to="/all-products" className="nav_link">
+						All products
 					</NavLink>
 					{userId ? (
 						<button className="nav_btn">
