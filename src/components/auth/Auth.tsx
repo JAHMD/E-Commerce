@@ -1,10 +1,19 @@
 import { SignIn, SignOutButton, useUser } from "@clerk/clerk-react";
+import { useEffect, useState } from "react";
+import LoaderComponent from "../Loader";
 
 const Auth = () => {
 	const { isSignedIn, user, isLoaded } = useUser();
+	const [isLoading, setIsLoading] = useState<boolean>(true);
+	console.log(isLoaded);
 
-	if (!isLoaded) {
-		return <p>Loadding...</p>;
+	useEffect(() => {
+		setIsLoading(false);
+		return () => setIsLoading(true);
+	}, [isLoaded]);
+
+	if (isLoading) {
+		return <LoaderComponent />;
 	}
 
 	return (

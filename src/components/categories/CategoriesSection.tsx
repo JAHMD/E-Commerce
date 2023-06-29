@@ -1,4 +1,4 @@
-import CategoryCart from "./CategoryCart";
+import CategoryCard from "./CategoryCard";
 
 const CategoriesSection = () => {
 	const categories: string[] = [
@@ -8,7 +8,7 @@ const CategoriesSection = () => {
 		"jewelery",
 	];
 	const categoriesCards = categories.map((cat, idx) => (
-		<CategoryCart key={idx} category={cat} />
+		<CategoryCard key={idx} category={cat} />
 	));
 
 	return (
