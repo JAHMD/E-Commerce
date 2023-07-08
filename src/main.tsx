@@ -11,7 +11,9 @@ import {
 } from "react-router-dom";
 
 // pages
-import Auth from "./components/auth/Auth.tsx";
+import SignIn from "./components/auth/SignIn.tsx";
+import User from "./components/auth/User.tsx";
+import AllCategories from "./pages/AllCategories.tsx";
 import AllProducts from "./pages/AllProducts.tsx";
 import CategoryPage from "./pages/CategoryPage.tsx";
 import Home from "./pages/Home.tsx";
@@ -21,12 +23,16 @@ const router = createBrowserRouter(
 	createRoutesFromElements(
 		<Route path="/" element={<App />}>
 			<Route index element={<Home />} />
-			<Route path="all-products" element={<AllProducts />} />
-			<Route path="/categories">
-				<Route path=":cat" element={<CategoryPage />} />
+			<Route path="products">
+				<Route index element={<AllProducts />} />
 			</Route>
 
-			<Route path="sign-in" element={<Auth />} />
+			<Route path="categories">
+				<Route index element={<AllCategories />} />
+				<Route path=":cat" element={<CategoryPage />} />
+			</Route>
+			<Route path="sign-in" element={<SignIn />} />
+			<Route path="user" element={<User />} />
 			<Route path="*" element={<NotFound />} />
 		</Route>
 	)

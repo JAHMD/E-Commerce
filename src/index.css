@@ -13,6 +13,10 @@ section {
 	padding-block: 2rem;
 }
 
+svg {
+	display: inline-block;
+}
+
 @layer components {
 	.btn {
 		@apply rounded-md px-6 py-2;
@@ -25,8 +29,16 @@ section {
 		@apply bg-white font-semibold text-primary-main-headdings transition-colors duration-200 hover:bg-gray-300;
 	}
 
+	.link {
+		@apply flex w-full items-center justify-center gap-4 rounded-md bg-primary-footer px-4 py-2 transition-colors hover:bg-primary-headdings hover:text-white sm:w-fit;
+	}
+
+	.menu_list {
+		@apply absolute left-0 top-[calc(100%+0.5rem)] z-10 w-fit space-y-2 whitespace-nowrap rounded-md border-2 border-primary-text bg-primary-header p-4;
+	}
+
 	.heading {
-		@apply text-3xl font-bold text-primary-main-headdings;
+		@apply text-3xl font-bold capitalize text-primary-main-headdings;
 	}
 
 	.brands_list {
@@ -47,14 +59,27 @@ section {
 	}
 
 	.nav_btn {
-		@apply rounded-md p-1.5 ring-primary-text transition duration-200 hover:ring-2;
+		@apply rounded-md p-1.5 font-medium ring-primary-text transition duration-200 hover:ring-2;
 	}
 
 	.nav_link {
-		@apply border-b-2 border-b-transparent transition-colors duration-200 hover:border-b-primary-text;
+		@apply inline-block w-full rounded-md px-4 py-2 capitalize transition-colors duration-200 hover:bg-primary-text/40;
 	}
 	.nav_link.active {
-		@apply border-b-primary-text;
+		@apply bg-primary-text/40;
+	}
+
+	.form_field {
+		@apply flex flex-col space-y-2;
+	}
+	.form_field > label {
+		@apply text-sm font-medium;
+	}
+	.form_field > input {
+		@apply rounded-md px-4 py-2 text-sm outline-1 outline-primary-headdings;
+	}
+	.form_field > p {
+		@apply text-sm text-rose-500;
 	}
 
 	.sign-out {

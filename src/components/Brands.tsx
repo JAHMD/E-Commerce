@@ -11,8 +11,10 @@ const Brands = () => {
 	];
 
 	const brandsElements = brands.map((brand) => {
-		const brandImg = new URL(`../assets/images/${brand}.png`, import.meta.url)
-			.href;
+		const brandImg = new URL(
+			`../assets/images/brands/${brand}.png`,
+			import.meta.url
+		).href;
 		return (
 			<li key={brand} className="shrink-0">
 				<img

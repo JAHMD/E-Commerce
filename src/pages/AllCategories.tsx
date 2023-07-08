@@ -1,6 +1,6 @@
 import { QueryCache, useQuery } from "react-query";
 import LoaderComponent from "../components/Loader";
-import ProductCard from "../components/ProductCard";
+import CategoryCard from "../components/categories/CategoryCard";
 
 const queryCache = new QueryCache({
 	onError: (error) => {
@@ -11,28 +11,15 @@ const queryCache = new QueryCache({
 	},
 });
 
-export type ProductType = {
-	id: string | number;
-	title: string;
-	price: number;
-	description: string;
-	category: string;
-	rating: number;
-	discountPercentage: number;
-	brand: string;
-	thumbnail: string;
-	images: string[];
-};
+const URL = "https://dummyjson.com/products/categories";
 
-const URL = "https://dummyjson.com/products";
-
-const AllProducts = () => {
+const AllCategories = () => {
 	const { isLoading, error, data } = useQuery({
-		queryKey: ["all-products"],
+		queryKey: ["all-categories"],
 		queryFn: () => fetch(URL).then((res) => res.json()),
 	});
 
-	const query = queryCache.find("posts") || data?.products;
+	const query = queryCache.find("all-categories") || data;
 
 	if (isLoading) {
 		return <LoaderComponent />;
@@ -41,19 +28,18 @@ const AllProducts = () => {
 	if (error instanceof Error) {
 		return <p>An error has occurred: {error.message}</p>;
 	}
-
 	return (
 		<section className="container">
 			<h1 className="mb-6 py-4 text-center text-4xl font-bold capitalize text-primary-main-headdings">
-				All products
+				All categories
 			</h1>
 			<div className="grid grid-cols-repeat gap-8">
-				{query.map((product: ProductType) => (
-					<ProductCard key={product.id} product={product} />
+				{query?.map((category: string) => (
+					<CategoryCard key={category} category={category} />
 				))}
 			</div>
 		</section>
 	);
 };
 
-export default AllProducts;
+export default AllCategories;

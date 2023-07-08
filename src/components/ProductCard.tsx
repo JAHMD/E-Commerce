@@ -1,14 +1,21 @@
 import { Star } from "lucide-react";
+import { useState } from "react";
 import { ProductType } from "../pages/AllProducts";
+import ImageLoader from "./ImageLoader";
 
-const ProductCard = (props: ProductType) => {
-	const { image, title, price, rating } = props;
+type PropsType = {
+	product: ProductType;
+};
+
+const ProductCard = ({ product }: PropsType) => {
+	const [isImageLoading, setIsImageLoading] = useState<boolean>(true);
+	const { thumbnail, title, price, rating } = product;
 	const disPrice = new Intl.NumberFormat("en-UA", {
 		style: "currency",
 		currency: "USD",
 	}).format(price);
-	const rate = Number(rating.rate.toFixed(0));
 
+	const rate = Math.trunc(rating);
 	const starsValues = `${"gold ".repeat(rate)}${"gray ".repeat(
 		5 - rate
 	)}`.split(" ");
@@ -20,29 +27,36 @@ const ProductCard = (props: ProductType) => {
 				key={idx}
 				className={`${
 					item === "gold" ? "fill-amber-400" : ""
-				} stroke-primary-header`}
+				} stroke-slate-600`}
 			/>
 		));
 
 	return (
-		<article className="overflow-hidden rounded-lg border-2 bg-primary-footer shadow-light">
-			<div className="h-32 overflow-hidden">
-				<img
-					loading="lazy"
-					src={image}
-					alt={`${title} image`}
-					className="h-full w-full object-cover object-top"
-				/>
+		<article className="overflow-hidden rounded-lg border-2 bg-primary-footer pt-4 shadow-light">
+			<div className="relative overflow-hidden">
+				<ImageLoader isImageLoading={isImageLoading} />
+				<div className={`h-32 ${isImageLoading ? "opacity-0" : ""}`}>
+					<img
+						onLoad={() => setIsImageLoading(false)}
+						loading="lazy"
+						src={thumbnail}
+						alt={`${title} image`}
+						className=" h-full w-full object-contain object-top mix-blend-darken"
+					/>
+				</div>
+			</div>
+			<div className="p-4 text-primary-header">
+				<h2 className="truncate font-medium capitalize text-primary-header">
+					{title}
+				</h2>
+				<div className="mt-2 flex items-center gap-2">
+					<span className="flex w-20">{stars}</span>
+					<p className="shrink-0">({rating})</p>
+				</div>
+				<p className="pt-2 text-sm text-slate-600">{disPrice}</p>
 			</div>
 			<div className="p-4">
-				<h2 className="font-medium text-primary-header">{title}</h2>
-				<div className="mt-4 flex items-center gap-2">
-					<span className="flex w-20">{stars}</span>
-					<p className="shrink-0">
-						({rating.rate}) {rating.count}
-					</p>
-				</div>
-				<p className="pt-2">{disPrice}</p>
+				<button className="btn btn-primary w-full">Add to cart</button>
 			</div>
 		</article>
 	);

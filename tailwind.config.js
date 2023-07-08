@@ -2,6 +2,14 @@
 export default {
 	content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
 	theme: {
+		container: {
+			screens: {
+				md: "768px",
+				lg: "1024px",
+				xl: "1280px",
+				"2xl": "1450px",
+			},
+		},
 		extend: {
 			boxShadow: {
 				light: "3px 3px 6px 0 hsl(0deg 0% 0% / 8%)",
