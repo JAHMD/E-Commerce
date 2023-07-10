@@ -1,6 +1,10 @@
 import { Loader } from "lucide-react";
+import { useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { login, setUserData } from "../../redux/features/auth/authSlice";
+import { RootState } from "../../redux/store/store";
 
 interface IFormInput {
 	userName: string;
@@ -9,24 +13,31 @@ interface IFormInput {
 
 const SignIn = () => {
 	const navigate = useNavigate();
+	const token = useSelector((state: RootState) => state.auth.user.token);
+	const dispatch = useDispatch();
+
 	const {
 		register,
 		handleSubmit,
 		formState: { errors, isSubmitting },
 	} = useForm<IFormInput>();
 
-	const onSubmit: SubmitHandler<IFormInput> = async (data) => {
+	const onSubmit: SubmitHandler<IFormInput> = async (inputData) => {
 		try {
 			const user = await fetch("https://dummyjson.com/auth/login", {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify({
-					username: data.userName,
-					password: data.password,
+					username: inputData.userName,
+					password: inputData.password,
 				}),
 			});
+			const returnedData = await user.json();
 
 			if (user.ok) {
+				console.log(returnedData);
+				dispatch(login());
+				dispatch(setUserData(returnedData));
 				navigate("/user", { replace: true });
 			}
 		} catch (err) {
@@ -36,8 +47,14 @@ const SignIn = () => {
 		}
 	};
 
+	useEffect(() => {
+		if (token) {
+			navigate("/user", { replace: true });
+		}
+	}, [token, navigate]);
+
 	return (
-		<section className="contaienr flex items-center justify-center">
+		<section className="contaienr flex flex-col items-center justify-center">
 			<form
 				action=""
 				onSubmit={handleSubmit(onSubmit)}
@@ -92,6 +109,15 @@ const SignIn = () => {
 					Submit
 				</button>
 			</form>
+			<div className="mt-6 text-slate-500">
+				<p className="flex gap-4">
+					<span className="font-semibold capitalize">username:</span>
+					kminchelle
+				</p>
+				<p className="flex gap-4">
+					<span className="font-semibold capitalize">pass:</span> 0lelplR
+				</p>
+			</div>
 		</section>
 	);
 };

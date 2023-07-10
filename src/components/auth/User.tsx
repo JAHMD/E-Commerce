@@ -1,7 +1,9 @@
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { RootState } from "../../redux/store/store";
 
-type UserType = {
-	id: string | number;
+export type UserType = {
 	username: string;
 	email: string;
 	firstName: string;
@@ -11,21 +13,17 @@ type UserType = {
 	token: string;
 };
 
-const userLoader = async () => {
-	return null;
-};
-
-// kminchelle pass: 0lelplR
-
 const User = () => {
 	const navigate = useNavigate();
-	const user = {};
-	const token = false;
+	const { token, firstName, image, lastName } = useSelector(
+		(state: RootState) => state.auth.user
+	);
 
-	if (!token) {
-		navigate("/sign-in", { replace: true });
-		return;
-	}
+	useEffect(() => {
+		if (!token) {
+			navigate("/sign-in", { replace: true });
+		}
+	}, []);
 
 	return (
 		<section className="py-1S0 container flex">
@@ -36,14 +34,14 @@ const User = () => {
 				<div className="mb-6 flex items-center gap-6">
 					<img
 						loading="lazy"
-						src={""}
+						src={image}
 						alt="profile image"
 						width={100}
 						height={100}
 						className="rounded-full"
 					/>
 					<p className="text-xl font-bold text-primary-headdings">
-						{/* {`${user.firstName} ${user.lastName}`} */}
+						{`${firstName} ${lastName}`}
 					</p>
 				</div>
 			</div>
