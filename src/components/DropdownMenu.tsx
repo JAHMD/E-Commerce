@@ -25,7 +25,7 @@ const DropdownMenu = ({ children, btnRef, menuName }: PropsType) => {
 	}, []);
 
 	return (
-		<div className="relative">
+		<div className="relative shrink-0">
 			<button
 				ref={btnRef}
 				className="nav_btn px-4"

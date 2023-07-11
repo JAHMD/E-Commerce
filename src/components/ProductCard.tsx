@@ -1,5 +1,6 @@
 import { Star } from "lucide-react";
 import { useState } from "react";
+import { NavLink } from "react-router-dom";
 import { ProductType } from "../pages/AllProducts";
 import ImageLoader from "./ImageLoader";
 
@@ -32,29 +33,31 @@ const ProductCard = ({ product }: PropsType) => {
 		));
 
 	return (
-		<article className="overflow-hidden rounded-lg border-2 bg-primary-footer pt-4 shadow-light">
-			<div className="relative overflow-hidden">
-				<ImageLoader isImageLoading={isImageLoading} />
-				<div className={`h-32 ${isImageLoading ? "opacity-0" : ""}`}>
-					<img
-						onLoad={() => setIsImageLoading(false)}
-						loading="lazy"
-						src={thumbnail}
-						alt={`${title} image`}
-						className=" h-full w-full object-contain object-top mix-blend-darken"
-					/>
+		<article className="overflow-hidden rounded-lg border-2 bg-primary-footer shadow-light">
+			<NavLink to={`/products/${product.id}`} className="group">
+				<div className="relative overflow-hidden">
+					<ImageLoader isImageLoading={isImageLoading} />
+					<div className={`h-32 ${isImageLoading ? "opacity-0" : ""}`}>
+						<img
+							onLoad={() => setIsImageLoading(false)}
+							loading="lazy"
+							src={thumbnail}
+							alt={`${title} image`}
+							className="h-full w-full object-contain object-top mix-blend-darken transition-transform group-hover:scale-110"
+						/>
+					</div>
 				</div>
-			</div>
-			<div className="p-4 text-primary-header">
-				<h2 className="truncate font-medium capitalize text-primary-header">
-					{title}
-				</h2>
-				<div className="mt-2 flex items-center gap-2">
-					<span className="flex w-20">{stars}</span>
-					<p className="shrink-0">({rating})</p>
+				<div className="p-4 text-primary-header">
+					<h2 className="truncate font-medium capitalize text-primary-header">
+						{title}
+					</h2>
+					<div className="mt-2 flex items-center gap-2">
+						<span className="flex w-20">{stars}</span>
+						<p className="shrink-0">({rating})</p>
+					</div>
+					<p className="pt-2 text-sm text-slate-600">{disPrice}</p>
 				</div>
-				<p className="pt-2 text-sm text-slate-600">{disPrice}</p>
-			</div>
+			</NavLink>
 			<div className="p-4">
 				<button className="btn btn-primary w-full">Add to cart</button>
 			</div>

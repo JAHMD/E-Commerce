@@ -18,6 +18,7 @@ import AllProducts from "./pages/AllProducts.tsx";
 import CategoryPage from "./pages/CategoryPage.tsx";
 import Home from "./pages/Home.tsx";
 import NotFound from "./pages/NotFound.tsx";
+import Product from "./pages/Product.tsx";
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -25,6 +26,7 @@ const router = createBrowserRouter(
 			<Route index element={<Home />} />
 			<Route path="products">
 				<Route index element={<AllProducts />} />
+				<Route path=":id" element={<Product />} />
 			</Route>
 
 			<Route path="categories">
