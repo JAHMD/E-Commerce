@@ -1,12 +1,16 @@
 import { ShoppingCart, User } from "lucide-react";
 import { useRef } from "react";
+import { useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
+import { RootState } from "../redux/store/store";
 import DropdownMenu from "./DropdownMenu";
 import NavMenuItems from "./NavMenuItems";
 
 const Navbar = () => {
 	const lobbyRef = useRef<HTMLButtonElement>(null);
 	const clothingRef = useRef<HTMLButtonElement>(null);
+
+	const qty = useSelector((state: RootState) => state.cart.qty);
 
 	const lobbyItems = [
 		{ name: "home", path: "/" },
@@ -37,8 +41,11 @@ const Navbar = () => {
 				</div>
 
 				<div className=" flex w-fit items-center gap-4">
-					<button className="nav_btn">
+					<button className="nav_btn relative">
 						<ShoppingCart />
+						<span className="absolute right-0 top-0 flex aspect-square w-5 min-w-fit translate-x-1/2 items-center justify-center rounded-full bg-primary-footer text-xs font-bold text-primary-headdings">
+							{qty}
+						</span>
 					</button>
 					<NavLink to="/user" className="nav_btn">
 						<User />
