@@ -1,14 +1,15 @@
 import { ChevronDown, ChevronUp } from "lucide-react";
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
 
 type PropsType = {
 	menuName: string;
 	children: ReactNode;
-	btnRef: React.RefObject<HTMLButtonElement>;
+	isInFloatingMenu?: boolean;
 };
 
-const DropdownMenu = ({ children, btnRef, menuName }: PropsType) => {
+const DropdownMenu = ({ children, menuName, isInFloatingMenu }: PropsType) => {
 	const [isListOpen, setIsListOpen] = useState<boolean>(false);
+	const btnRef = useRef<HTMLButtonElement>(null);
 
 	const handleClickEven = (e: MouseEvent) => {
 		if (btnRef.current !== e.target) {
@@ -25,10 +26,16 @@ const DropdownMenu = ({ children, btnRef, menuName }: PropsType) => {
 	}, []);
 
 	return (
-		<div className="relative shrink-0">
+		<div
+			className={`relative shrink-0 ${isInFloatingMenu ? "w-full px-6" : ""}`}
+		>
 			<button
 				ref={btnRef}
-				className="nav_btn px-4"
+				className={`nav_btn ${
+					isInFloatingMenu
+						? "flex w-full items-center justify-between border-b border-b-slate-500 pb-4"
+						: "px-4"
+				}`}
 				onClick={() => setIsListOpen((oldState) => !oldState)}
 			>
 				{menuName}{" "}

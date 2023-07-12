@@ -34,7 +34,7 @@ svg {
 	}
 
 	.menu_list {
-		@apply absolute left-0 top-[calc(100%+0.5rem)] z-10 w-[205px] space-y-2 whitespace-nowrap rounded-md border-2 border-primary-text bg-primary-header p-4;
+		@apply left-0 z-10 w-full space-y-2 whitespace-nowrap border-primary-text bg-primary-header py-4 text-sm text-white/90 sm:absolute sm:top-[calc(100%+0.5rem)] sm:w-[205px] sm:rounded-md sm:border-2 sm:p-4;
 	}
 
 	.heading {
@@ -59,14 +59,14 @@ svg {
 	}
 
 	.nav_btn {
-		@apply rounded-md p-1.5 font-medium ring-primary-text transition duration-200 hover:ring-2;
+		@apply font-medium transition-colors duration-200 hover:underline sm:rounded-md sm:p-1.5 sm:hover:bg-primary-main-headdings sm:hover:no-underline;
 	}
 
 	.nav_link {
-		@apply inline-block w-full rounded-md px-4 py-2 capitalize transition-colors duration-200 hover:bg-primary-text/40;
+		@apply inline-block w-full rounded-md px-4 py-2 capitalize transition-colors duration-200 hover:bg-primary-main-headdings;
 	}
 	.nav_link.active {
-		@apply bg-primary-text/40;
+		@apply bg-primary-main-headdings;
 	}
 
 	.form_field {
