@@ -14,7 +14,7 @@ export type NavItemType = {
 
 const Navbar = () => {
 	const qty = useSelector((state: RootState) => state.cart.qty);
-	const [isMenuOpen, setIsMenuOpen] = useState<boolean>();
+	const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
 	const lobbyItems: NavItemType[] = [
 		{ name: "home", path: "/" },
@@ -49,12 +49,12 @@ const Navbar = () => {
 			<nav className="container flex items-center justify-between gap-4 p-6">
 				<button
 					className="nav_btn sm:hidden"
-					onClick={() => setIsMenuOpen((oldState) => !oldState)}
+					onClick={() => setIsMenuOpen(true)}
 				>
 					<Menu />
 				</button>
-				<div className="hidden items-center gap-4 sm:flex">
-					<h1>
+				<div className="hidden items-center gap-2 sm:flex">
+					<h1 className="sm:mr-4">
 						<Link to="/" className="font-lobster text-2xl font-bold">
 							Store
 						</Link>
@@ -71,8 +71,8 @@ const Navbar = () => {
 				{isMenuOpen ? (
 					<FloatingMenu
 						clothingItems={clothingItems}
-						toggleMenu={setIsMenuOpen}
 						lobbyItems={lobbyItems}
+						closeMenu={setIsMenuOpen}
 					/>
 				) : null}
 

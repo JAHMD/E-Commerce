@@ -8,10 +8,10 @@ import { NavItemType } from "./Navbar";
 type PropsType = {
 	lobbyItems: NavItemType[];
 	clothingItems: NavItemType[];
-	toggleMenu: React.Dispatch<React.SetStateAction<boolean | undefined>>;
+	closeMenu: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const FloatingMenu = ({ lobbyItems, clothingItems, toggleMenu }: PropsType) => {
+const FloatingMenu = ({ lobbyItems, clothingItems, closeMenu }: PropsType) => {
 	return createPortal(
 		<div className="fixed left-0 top-0 z-20 h-screen w-screen bg-primary-header/60 text-white">
 			<div className="flex h-screen w-80 max-w-full flex-col items-center gap-10 bg-primary-header py-6 shadow-sm">
@@ -19,15 +19,23 @@ const FloatingMenu = ({ lobbyItems, clothingItems, toggleMenu }: PropsType) => {
 					<Link to="/" className="font-lobster text-2xl font-bold">
 						Store
 					</Link>
-					<button className="" onClick={() => toggleMenu(false)}>
+					<button className="" onClick={() => closeMenu(false)}>
 						<X />
 					</button>
 				</div>
 				<div className="w-full space-y-4">
-					<DropdownMenu menuName="Lobby" isInFloatingMenu={true}>
+					<DropdownMenu
+						menuName="Lobby"
+						isInFloatingMenu={true}
+						closeMenu={closeMenu}
+					>
 						<NavMenuItems items={lobbyItems} />
 					</DropdownMenu>
-					<DropdownMenu menuName="Clothing" isInFloatingMenu={true}>
+					<DropdownMenu
+						menuName="Clothing"
+						isInFloatingMenu={true}
+						closeMenu={closeMenu}
+					>
 						<NavMenuItems items={clothingItems} />
 					</DropdownMenu>
 				</div>

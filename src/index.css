@@ -26,7 +26,7 @@ svg {
 		@apply bg-primary-header font-semibold text-white transition-colors duration-200 hover:bg-slate-700;
 	}
 	.btn-alt {
-		@apply bg-white font-semibold text-primary-main-headdings transition-colors duration-200 hover:bg-gray-300;
+		@apply inline-block bg-white font-semibold text-primary-main-headdings transition-colors duration-200 hover:bg-gray-300;
 	}
 
 	.link {
@@ -34,7 +34,7 @@ svg {
 	}
 
 	.menu_list {
-		@apply left-0 z-10 w-full space-y-2 whitespace-nowrap border-primary-text bg-primary-header py-4 text-sm text-white/90 sm:absolute sm:top-[calc(100%+0.5rem)] sm:w-[205px] sm:rounded-md sm:border-2 sm:p-4;
+		@apply left-0 z-10 w-full space-y-2 whitespace-nowrap border-primary-text bg-primary-header py-4 text-sm text-white/90 sm:absolute sm:top-[calc(100%+2px)] sm:w-[205px] sm:rounded-md sm:border-2 sm:p-4;
 	}
 
 	.heading {
