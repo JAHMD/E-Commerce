@@ -9,6 +9,20 @@
 	font-family: "Inter", sans-serif;
 }
 
+::-webkit-scrollbar {
+	/* Customize the scrollbar width */
+	@apply w-2 rounded-md;
+}
+
+::-webkit-scrollbar-track {
+	@apply bg-white;
+}
+
+::-webkit-scrollbar-thumb {
+	/* Customize the scrollbar thumb */
+	@apply rounded-md bg-gray-300;
+}
+
 section {
 	padding-block: 2rem;
 }

@@ -19,20 +19,23 @@ const DropdownMenu = ({
 
 	const handleMouseOver = (e: MouseEvent) => {
 		const target = e.target as HTMLElement;
-		if (menuRef.current?.contains(target)) {
-			setIsListOpen(true);
-		} else setIsListOpen(false);
+		if (!menuRef.current?.contains(target)) {
+			setIsListOpen(false);
+			return;
+		}
+		setIsListOpen(true);
 	};
 
 	const handleClickEvent = (e: MouseEvent) => {
 		const target = e.target as HTMLElement;
-		if (menuRef.current?.contains(target)) {
-			setIsListOpen((prevState) => !prevState);
-			if (closeMenu && target !== btnRef.current) {
-				closeMenu(false);
-			}
-		} else {
+		if (!menuRef.current?.contains(target)) {
 			setIsListOpen(false);
+			return;
+		}
+
+		setIsListOpen((prevState) => !prevState);
+		if (closeMenu && target !== btnRef.current) {
+			closeMenu(false);
 		}
 	};
 

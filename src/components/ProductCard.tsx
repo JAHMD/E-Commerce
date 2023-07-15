@@ -1,7 +1,10 @@
 import { Star } from "lucide-react";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { ProductType } from "../pages/AllProducts";
+import { addItem } from "../redux/features/cart/cartSlice";
+import { RootState } from "../redux/store/store";
 import ImageLoader from "./ImageLoader";
 
 type PropsType = {
@@ -9,8 +12,13 @@ type PropsType = {
 };
 
 const ProductCard = ({ product }: PropsType) => {
+	const { thumbnail, title, price, rating, id } = product;
+
+	const dispatch = useDispatch();
+	const cartItems = useSelector((state: RootState) => state.cart.cartItems);
+	const isCartItem = cartItems.find((cartItem) => cartItem.id === id);
+
 	const [isImageLoading, setIsImageLoading] = useState<boolean>(true);
-	const { thumbnail, title, price, rating } = product;
 	const disPrice = new Intl.NumberFormat("en-UA", {
 		style: "currency",
 		currency: "USD",
@@ -31,6 +39,10 @@ const ProductCard = ({ product }: PropsType) => {
 				} stroke-slate-600`}
 			/>
 		));
+
+	const handleAddToCart = () => {
+		dispatch(addItem({ ...product, quantity: 1 }));
+	};
 
 	return (
 		<article className="overflow-hidden rounded-lg border-2 bg-primary-footer shadow-light">
@@ -59,7 +71,15 @@ const ProductCard = ({ product }: PropsType) => {
 				</div>
 			</NavLink>
 			<div className="p-4">
-				<button className="btn btn-primary w-full">Add to cart</button>
+				{isCartItem ? (
+					<p className="rounded-md bg-slate-300/80 p-2 text-center font-medium text-primary-header">
+						In your cart.
+					</p>
+				) : (
+					<button className="btn btn-primary w-full" onClick={handleAddToCart}>
+						Add to cart
+					</button>
+				)}
 			</div>
 		</article>
 	);

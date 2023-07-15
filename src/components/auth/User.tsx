@@ -1,6 +1,8 @@
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useQuery } from "react-query";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { setUserCart } from "../../redux/features/cart/cartSlice";
 import { RootState } from "../../redux/store/store";
 
 export type UserType = {
@@ -15,9 +17,25 @@ export type UserType = {
 
 const User = () => {
 	const navigate = useNavigate();
-	const { token, firstName, image, lastName } = useSelector(
-		(state: RootState) => state.auth.user
-	);
+	const {
+		user: { token, firstName, image, lastName },
+		isLoggedIn,
+	} = useSelector((state: RootState) => state.auth);
+
+	const { data } = useQuery({
+		queryKey: ["user-cart"],
+		queryFn: () =>
+			fetch("https://dummyjson.com/carts/user/15").then((res) => res.json()),
+	});
+	const dispatch = useDispatch();
+
+	console.log(data);
+
+	useEffect(() => {
+		if (isLoggedIn) {
+			dispatch(setUserCart(data.carts[0].products));
+		}
+	}, [isLoggedIn, data]);
 
 	useEffect(() => {
 		if (!token) {

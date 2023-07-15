@@ -1,11 +1,12 @@
 import { Menu, ShoppingCart, User } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
 import { RootState } from "../redux/store/store";
 import DropdownMenu from "./DropdownMenu";
 import FloatingMenu from "./FloatingMenu";
 import NavMenuItems from "./NavMenuItems";
+import Cart from "./cart/Cart";
 
 export type NavItemType = {
 	name: string;
@@ -13,8 +14,11 @@ export type NavItemType = {
 };
 
 const Navbar = () => {
+	const cartBtnRef = useRef<HTMLButtonElement>(null);
+
 	const qty = useSelector((state: RootState) => state.cart.qty);
 	const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+	const [isCartOpen, setIsCartOpen] = useState<boolean>(false);
 
 	const lobbyItems: NavItemType[] = [
 		{ name: "home", path: "/" },
@@ -45,7 +49,7 @@ const Navbar = () => {
 	}, []);
 
 	return (
-		<header className="bg-primary-header text-white">
+		<header className="sticky top-0 z-20 bg-primary-header text-white shadow-md">
 			<nav className="container flex items-center justify-between gap-4 p-6">
 				<button
 					className="nav_btn sm:hidden"
@@ -76,13 +80,20 @@ const Navbar = () => {
 					/>
 				) : null}
 
-				<div className=" flex w-fit items-center gap-4">
-					<button className="nav_btn relative">
+				<div className="flex w-fit items-center gap-4">
+					<button
+						ref={cartBtnRef}
+						className="nav_btn relative"
+						onClick={() => setIsCartOpen(true)}
+					>
 						<ShoppingCart />
 						<span className="absolute right-0 top-0 flex aspect-square w-5 min-w-fit translate-x-1/2 items-center justify-center rounded-full bg-primary-footer text-xs font-bold text-primary-headdings">
 							{qty}
 						</span>
 					</button>
+					{isCartOpen ? (
+						<Cart setIsCartOpen={setIsCartOpen} cartBtnRef={cartBtnRef} />
+					) : null}
 					<NavLink to="/user" className="nav_btn">
 						<User />
 					</NavLink>

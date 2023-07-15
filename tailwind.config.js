@@ -28,7 +28,7 @@ export default {
 				padding: "1.5rem",
 			},
 			gridTemplateColumns: {
-				repeat: "repeat(auto-fit, minmax(230px, 1fr))",
+				repeat: "repeat(auto-fit, minmax(240px, 1fr))",
 			},
 			fontFamily: {
 				inter: ["Inter", "sans-serif"],
@@ -41,9 +41,27 @@ export default {
 					},
 					"100%": { transform: "translateX(-100%)" },
 				},
+				leftTranslation: {
+					"0%": {
+						transform: "translateX(100%)",
+					},
+					"100%": {
+						transform: "translateX(0%)",
+					},
+				},
+				rightTranslation: {
+					"0%": {
+						transform: "translateX(-100%)",
+					},
+					"100%": {
+						transform: "translateX(0%)",
+					},
+				},
 			},
 			animation: {
 				"Infinity-scroll": "quee1 10s linear infinite",
+				"left-translation": "leftTranslation 100ms linear 1",
+				"right-translation": "rightTranslation 100ms linear 1",
 			},
 		},
 	},

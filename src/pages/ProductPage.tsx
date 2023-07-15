@@ -1,17 +1,21 @@
 import { ChangeEvent, FormEvent, MouseEvent, useEffect, useState } from "react";
 import { useQuery } from "react-query";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import LoaderComponent from "../components/Loader";
-import { addItem, updateQty } from "../redux/features/cart/cartSlice";
+import { addItem } from "../redux/features/cart/cartSlice";
+import { RootState } from "../redux/store/store";
 import { ProductType } from "./AllProducts";
 
 const PRODUCT_URL = "https://dummyjson.com/products";
 
-const Product = () => {
+const ProductPage = () => {
+	const { id } = useParams<string>();
+	const cartItems = useSelector((state: RootState) => state.cart.cartItems);
+	const isCartItem = cartItems.find((cartItem) => cartItem.id === Number(id));
+
 	const dispatch = useDispatch();
 
-	const { id } = useParams();
 	const { isLoading, error, data } = useQuery({
 		queryKey: [`product-${id}`],
 		queryFn: (): Promise<ProductType> =>
@@ -41,14 +45,6 @@ const Product = () => {
 		setDisImg(data?.thumbnail);
 	}, [data]);
 
-	if (isLoading) {
-		return <LoaderComponent />;
-	}
-
-	if (error instanceof Error) {
-		return <p>An error has occurred: {error.message}</p>;
-	}
-
 	function handleQtyChange(e: ChangeEvent<HTMLInputElement>) {
 		setQty(e.target.valueAsNumber);
 	}
@@ -59,8 +55,15 @@ const Product = () => {
 
 	function handleSubmit(e: FormEvent<HTMLFormElement>) {
 		e.preventDefault();
-		dispatch(addItem(data));
-		dispatch(updateQty(qty));
+		dispatch(addItem({ ...(data as ProductType), quantity: qty }));
+	}
+
+	if (isLoading) {
+		return <LoaderComponent />;
+	}
+
+	if (error instanceof Error) {
+		return <p>An error has occurred: {error.message}</p>;
 	}
 
 	return (
@@ -109,9 +112,14 @@ const Product = () => {
 							value={qty}
 							onChange={handleQtyChange}
 							className="rounded-md bg-primary-footer px-4 py-2 text-primary-text"
-							minLength={1}
+							min={1}
 						/>
-						<button className="btn btn-primary">Add to cart</button>
+						<button
+							className="btn btn-primary disabled:cursor-not-allowed disabled:bg-slate-700"
+							disabled={!!isCartItem}
+						>
+							{isCartItem ? "In cart" : "Add to cart"}
+						</button>
 					</form>
 					<p className="text-primary-header">{data?.description}</p>
 				</div>
@@ -120,4 +128,4 @@ const Product = () => {
 	);
 };
 
-export default Product;
+export default ProductPage;
