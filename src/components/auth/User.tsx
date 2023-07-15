@@ -29,8 +29,6 @@ const User = () => {
 	});
 	const dispatch = useDispatch();
 
-	console.log(data);
-
 	useEffect(() => {
 		if (isLoggedIn) {
 			dispatch(setUserCart(data.carts[0].products));

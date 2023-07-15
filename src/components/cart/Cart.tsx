@@ -25,12 +25,9 @@ const Cart = memo(({ setIsCartOpen }: PropsType) => {
 		const handleClickEvent = (e: MouseEvent) => {
 			e.stopPropagation();
 			const target = e.target as HTMLElement;
-			console.log(cartRef.current?.contains(target), target);
-			setTimeout(() => {
-				if (target === cartRef.current) {
-					setIsCartOpen(false);
-				}
-			}, 10);
+			if (target === cartRef.current) {
+				setIsCartOpen(false);
+			}
 		};
 
 		document.addEventListener("click", handleClickEvent);

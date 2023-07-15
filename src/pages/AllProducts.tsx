@@ -1,5 +1,8 @@
+import { useEffect, useState } from "react";
 import { QueryCache, useQuery } from "react-query";
+import { useSearchParams } from "react-router-dom";
 import LoaderComponent from "../components/Loader";
+import Pagination from "../components/Pagination";
 import ProductCard from "../components/ProductCard";
 
 const queryCache = new QueryCache({
@@ -27,12 +30,19 @@ export type ProductType = {
 const URL = "https://dummyjson.com/products";
 
 const AllProducts = () => {
-	const { isLoading, error, data } = useQuery({
-		queryKey: ["all-products"],
-		queryFn: () => fetch(URL).then((res) => res.json()),
-	});
+	const [searchParams] = useSearchParams();
+	const skip: string | null = searchParams.get("skip");
+	const [pagesNumber, setPagesNumber] = useState<number>(0);
 
+	const { isLoading, error, data } = useQuery({
+		queryKey: [`all-products-${skip || 0}`],
+		queryFn: () => fetch(`${URL}?skip=${skip || 0}`).then((res) => res.json()),
+	});
 	const query = queryCache.find("posts") || data?.products;
+
+	useEffect(() => {
+		setPagesNumber(Math.ceil(data?.total / 30) || 0);
+	}, [data]);
 
 	if (isLoading) {
 		return <LoaderComponent />;
@@ -52,6 +62,9 @@ const AllProducts = () => {
 					<ProductCard key={product.id} product={product} />
 				))}
 			</div>
+			{pagesNumber ? (
+				<Pagination pagesNumber={pagesNumber} skip={skip} />
+			) : null}
 		</section>
 	);
 };

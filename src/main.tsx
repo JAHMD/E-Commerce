@@ -12,6 +12,7 @@ import {
 
 // pages
 import SignIn from "./components/auth/SignIn.tsx";
+import SignUp from "./components/auth/SingUp.tsx";
 import User from "./components/auth/User.tsx";
 import AllCategories from "./pages/AllCategories.tsx";
 import AllProducts from "./pages/AllProducts.tsx";
@@ -35,6 +36,7 @@ const router = createBrowserRouter(
 			</Route>
 
 			<Route path="sign-in" element={<SignIn />} />
+			<Route path="sign-up" element={<SignUp />} />
 			<Route path="user" element={<User />} />
 			<Route path="*" element={<NotFound />} />
 		</Route>
