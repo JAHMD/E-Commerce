@@ -23,11 +23,11 @@ const CartItem = ({ item }: PropsType) => {
 	};
 
 	return (
-		<article className=" grid grid-cols-6 gap-3 rounded-md bg-white p-3">
+		<article className=" grid grid-cols-6 items-center gap-3 rounded-md bg-white p-3">
 			<img
 				src={thumbnail}
 				alt={`${title} image`}
-				className="col-span-2 h-full rounded-lg"
+				className="col-span-2 h-[90px] w-full rounded-lg object-cover object-center"
 			/>
 			<div className="col-span-3">
 				<h3 className="w-[12rem] max-w-full truncate text-base font-medium capitalize text-primary-header">

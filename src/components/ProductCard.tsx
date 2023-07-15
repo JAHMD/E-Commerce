@@ -72,8 +72,8 @@ const ProductCard = ({ product }: PropsType) => {
 			</NavLink>
 			<div className="p-4">
 				{isCartItem ? (
-					<p className="rounded-md bg-slate-300/80 p-2 text-center font-medium text-primary-header">
-						In your cart.
+					<p className="rounded-md bg-slate-300/80 p-2 text-center font-semibold text-primary-header">
+						In cart
 					</p>
 				) : (
 					<button className="btn btn-primary w-full" onClick={handleAddToCart}>

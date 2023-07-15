@@ -46,7 +46,7 @@ const CategoryPage = () => {
 						All categories
 					</NavLink>
 					<NavLink to="/products" className="link">
-						Go to all products <MoveRight />
+						All products <MoveRight />
 					</NavLink>
 				</div>
 				<h1 className="py-6 text-center text-4xl font-bold capitalize text-primary-main-headdings">

@@ -1,5 +1,5 @@
 import { X } from "lucide-react";
-import { memo, useRef } from "react";
+import { memo, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store/store";
@@ -21,45 +21,44 @@ const Cart = memo(({ setIsCartOpen }: PropsType) => {
 	}).format(totalPrice);
 	const cartRef = useRef<HTMLDivElement>(null);
 
-	// useEffect(() => {
-	// 	const handleClickEvent = (e: MouseEvent) => {
-	// 		e.stopPropagation();
-	// 		const target = e.target as HTMLElement;
-	// 		console.log(cartRef.current?.contains(target), target);
-	// 		setTimeout(() => {
-	// 			if (
-	// 				!cartBtnRef.current?.contains(target) ||
-	// 				!cartRef.current?.contains(target)
-	// 			) {
-	// 				setIsCartOpen(false);
-	// 			} else setIsCartOpen(true);
-	// 		}, 10);
-	// 	};
+	useEffect(() => {
+		const handleClickEvent = (e: MouseEvent) => {
+			e.stopPropagation();
+			const target = e.target as HTMLElement;
+			console.log(cartRef.current?.contains(target), target);
+			setTimeout(() => {
+				if (target === cartRef.current) {
+					setIsCartOpen(false);
+				}
+			}, 10);
+		};
 
-	// 	document.addEventListener("click", handleClickEvent);
+		document.addEventListener("click", handleClickEvent);
 
-	// 	return () => document.addEventListener("click", handleClickEvent);
-	// }, []);
+		return () => document.addEventListener("click", handleClickEvent);
+	}, []);
 
 	return createPortal(
 		<div
 			ref={cartRef}
-			className=" fixed right-0 top-0 z-20 flex h-screen w-[450px] max-w-full animate-left-translation flex-col gap-4 overflow-hidden bg-primary-footer px-6 py-4 text-primary-header shadow-md"
+			className="fixed right-0 top-0 z-20 w-full bg-primary-header/50"
 		>
-			<div className="flex items-center justify-between">
-				<p className=" font-medium">Cart</p>
-				<button className="" onClick={() => setIsCartOpen(false)}>
-					<X />
-				</button>
-			</div>
-			<ul className="flex flex-col gap-4 overflow-y-auto rounded-md">
-				{cartItems.map((item) => (
-					<CartItem key={item.id} item={item} />
-				))}
-			</ul>
-			<div className="mt-auto rounded-md bg-slate-300/80 p-4 font-medium text-primary-main-headdings">
-				<p>Total items: {qty}</p>
-				<p>Total price: {disPrice}</p>
+			<div className="ml-auto flex h-screen w-[450px] max-w-full animate-left-translation flex-col gap-4 overflow-hidden bg-primary-footer px-6 py-4 text-primary-header shadow-md">
+				<div className="flex items-center justify-between">
+					<p className=" font-medium">Cart</p>
+					<button className="" onClick={() => setIsCartOpen(false)}>
+						<X />
+					</button>
+				</div>
+				<ul className="flex flex-col gap-4 overflow-y-auto rounded-md">
+					{cartItems.map((item) => (
+						<CartItem key={item.id} item={item} />
+					))}
+				</ul>
+				<div className="mt-auto rounded-md bg-slate-300/80 p-4 font-medium text-primary-main-headdings">
+					<p>Total items: {qty}</p>
+					<p>Total price: {disPrice}</p>
+				</div>
 			</div>
 		</div>,
 		document.body

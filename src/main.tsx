@@ -33,6 +33,7 @@ const router = createBrowserRouter(
 				<Route index element={<AllCategories />} />
 				<Route path=":cat" element={<CategoryPage />} />
 			</Route>
+
 			<Route path="sign-in" element={<SignIn />} />
 			<Route path="user" element={<User />} />
 			<Route path="*" element={<NotFound />} />
