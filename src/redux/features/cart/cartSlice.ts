@@ -69,7 +69,7 @@ const cartSlice = createSlice({
 			updateTotals(state);
 		},
 		setUserCart: (state, action) => {
-			const items = action.payload;
+			const items: CartItemType[] = action.payload;
 			state.cartItems = items;
 			updateTotals(state);
 		},

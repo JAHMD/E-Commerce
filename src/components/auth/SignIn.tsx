@@ -1,5 +1,5 @@
 import { Loader } from "lucide-react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
@@ -12,6 +12,7 @@ interface IFormInput {
 }
 
 const SignIn = () => {
+	const [loginErr, setLoginErr] = useState("");
 	const navigate = useNavigate();
 	const token = useSelector((state: RootState) => state.auth.user.token);
 
@@ -36,17 +37,18 @@ const SignIn = () => {
 			const returnedData = await user.json();
 
 			if (user.ok) {
-				console.log(returnedData);
 				dispatch(login());
 				dispatch(setUserData(returnedData));
 				navigate("/user", { replace: true });
-			}
+			} else setLoginErr("Login failed");
 		} catch (err) {
 			if (err instanceof Error) {
 				console.log(err.message);
 			}
 		}
 	};
+
+	console.log(loginErr);
 
 	useEffect(() => {
 		if (token) {
@@ -66,6 +68,7 @@ const SignIn = () => {
 					<input
 						placeholder="Enter your username"
 						{...register("userName", {
+							value: "kminchelle",
 							required: "Username is required",
 							pattern: {
 								message: "Username must start with an alphabet",
@@ -86,6 +89,7 @@ const SignIn = () => {
 						placeholder="Enter your password"
 						type="password"
 						{...register("password", {
+							value: "0lelplR",
 							required: "Password is required",
 							pattern: {
 								message: "Minimum eight characters and numbers",
@@ -109,6 +113,13 @@ const SignIn = () => {
 					) : null}{" "}
 					Submit
 				</button>
+
+				{loginErr ? (
+					<p className="text-center font-medium capitalize text-red-400">
+						{loginErr}
+					</p>
+				) : null}
+
 				<p className="text-center text-sm text-slate-500">
 					Don't have an account?{" "}
 					<Link to="/sign-up" className="font-medium underline">
@@ -116,6 +127,7 @@ const SignIn = () => {
 					</Link>
 				</p>
 			</form>
+
 			<div className="mt-6 text-slate-500">
 				<p className="flex gap-4">
 					<span className="font-semibold capitalize">username:</span>

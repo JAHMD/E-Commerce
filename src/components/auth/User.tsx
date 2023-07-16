@@ -6,6 +6,7 @@ import { setUserCart } from "../../redux/features/cart/cartSlice";
 import { RootState } from "../../redux/store/store";
 
 export type UserType = {
+	id: string | number;
 	username: string;
 	email: string;
 	firstName: string;
@@ -17,29 +18,32 @@ export type UserType = {
 
 const User = () => {
 	const navigate = useNavigate();
-	const {
-		user: { token, firstName, image, lastName },
-		isLoggedIn,
-	} = useSelector((state: RootState) => state.auth);
-
-	const { data } = useQuery({
-		queryKey: ["user-cart"],
-		queryFn: () =>
-			fetch("https://dummyjson.com/carts/user/15").then((res) => res.json()),
-	});
 	const dispatch = useDispatch();
 
-	useEffect(() => {
-		if (isLoggedIn) {
-			dispatch(setUserCart(data.carts[0].products));
-		}
-	}, [isLoggedIn, data]);
+	const {
+		user: { token, firstName, image, lastName, id },
+		isLoggedIn,
+	} = useSelector((state: RootState) => state.auth);
 
 	useEffect(() => {
 		if (!token) {
 			navigate("/sign-in", { replace: true });
 		}
 	}, []);
+
+	const { data } = useQuery({
+		queryKey: ["user-cart"],
+		queryFn: () =>
+			fetch(`https://dummyjson.com/users/${id || 15}/carts`).then((res) =>
+				res.json()
+			),
+	});
+
+	useEffect(() => {
+		if (isLoggedIn) {
+			dispatch(setUserCart(data.carts ? data?.carts[0]?.products : []));
+		}
+	}, [isLoggedIn, data]);
 
 	return (
 		<section className="py-1S0 container flex">

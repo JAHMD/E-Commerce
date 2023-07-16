@@ -1,7 +1,9 @@
 import { Loader } from "lucide-react";
+import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 import { login, setUserData } from "../../redux/features/auth/authSlice";
 
 interface IFormInput {
@@ -13,6 +15,9 @@ interface IFormInput {
 const SignUp = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
+	const genToken = uuidv4();
+
+	const [loginErr, setLoginErr] = useState("");
 
 	const {
 		register,
@@ -21,24 +26,30 @@ const SignUp = () => {
 	} = useForm<IFormInput>();
 
 	const onSubmit: SubmitHandler<IFormInput> = async (inputData) => {
+		if (inputData.password !== inputData.confPassword) {
+			setLoginErr("Password does not match");
+			return;
+		}
+
 		try {
-			if (inputData.password === inputData.confPassword) {
-				const user = await fetch("https://dummyjson.com/users/add", {
-					method: "POST",
-					headers: { "Content-Type": "application/json" },
-					body: JSON.stringify({
-						username: inputData.userName,
-						password: inputData.password,
-					}),
-				});
-				const returnedData = await user.json();
-				console.log(returnedData);
-				if (user.ok) {
-					dispatch(login());
-					dispatch(setUserData(returnedData));
-					navigate("/user", { replace: true });
-					return returnedData;
-				}
+			const user = await fetch("https://dummyjson.com/users/add", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({
+					username: inputData.userName,
+					password: inputData.password,
+					firstName: "Unknown",
+					image:
+						"https://www.pngkey.com/png/full/349-3499617_person-placeholder-person-placeholder.png",
+				}),
+			});
+			const returnedData = await user.json();
+			console.log(returnedData);
+			if (user.ok) {
+				dispatch(login());
+				dispatch(setUserData({ ...returnedData, token: genToken }));
+				navigate("/user", { replace: true });
+				return returnedData;
 			}
 		} catch (err) {
 			if (err instanceof Error) {
@@ -56,7 +67,7 @@ const SignUp = () => {
 				<div className="form_field">
 					<label htmlFor="user-name">User name</label>
 					<input
-						placeholder="Enter your username"
+						placeholder="Username"
 						{...register("userName", {
 							required: "Username is required",
 							pattern: {
@@ -75,7 +86,7 @@ const SignUp = () => {
 				<div className="form_field">
 					<label htmlFor="password">Password</label>
 					<input
-						placeholder="Enter your password"
+						placeholder="Password"
 						type="password"
 						{...register("password", {
 							required: "Password is required",
@@ -95,7 +106,7 @@ const SignUp = () => {
 				<div className="form_field">
 					<label htmlFor="conf-password">Confirm password</label>
 					<input
-						placeholder="Enter your password"
+						placeholder="Confirm password"
 						type="password"
 						{...register("confPassword", {
 							required: "Password is required",
@@ -123,6 +134,13 @@ const SignUp = () => {
 					) : null}{" "}
 					Sign up
 				</button>
+
+				{loginErr ? (
+					<p className="text-center font-medium capitalize text-red-400">
+						{loginErr}
+					</p>
+				) : null}
+
 				<p className="text-center text-sm text-slate-500">
 					Do you have an account?{" "}
 					<Link to="/sign-in" className="font-medium underline">
