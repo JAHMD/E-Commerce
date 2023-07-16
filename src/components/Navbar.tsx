@@ -22,14 +22,26 @@ const Navbar = () => {
 
 	const lobbyItems: NavItemType[] = [
 		{ name: "home", path: "/" },
+		{ name: "products", path: "/products" },
 		{ name: "categories", path: "/categories" },
-		{ name: "all products", path: "/products" },
 	];
 
 	const clothingItems: NavItemType[] = [
 		{ name: "tops", path: "/categories/tops" },
 		{ name: "women's dresses", path: "/categories/womens-dresses" },
 		{ name: "men's shirts", path: "/categories/mens-shirts" },
+	];
+
+	const shoesItems: NavItemType[] = [
+		{ name: "women's shoes", path: "/categories/womens-shoes" },
+		{ name: "men's shoes", path: "/categories/mens-shoes" },
+	];
+
+	const accessoriesItems: NavItemType[] = [
+		{ name: "men's watches", path: "/categories/mens-watches" },
+		{ name: "women's watches", path: "/categories/womens-watches" },
+		{ name: "women's jewellery", path: "/categories/womens-jewellery" },
+		{ name: "sunglasses", path: "/categories/sunglasses" },
 	];
 
 	useEffect(() => {
@@ -52,13 +64,13 @@ const Navbar = () => {
 		<header className="sticky top-0 z-20 bg-primary-header text-white shadow-md">
 			<nav className="container flex items-center justify-between gap-4 p-6">
 				<button
-					className="nav_btn sm:hidden"
+					className="nav_btn md:hidden"
 					onClick={() => setIsMenuOpen(true)}
 				>
 					<Menu />
 				</button>
-				<div className="hidden items-center gap-2 sm:flex">
-					<h1 className="sm:mr-4">
+				<div className="hidden items-center gap-2 md:flex">
+					<h1 className="md:mr-4">
 						<Link to="/" className="font-lobster text-2xl font-bold">
 							Store
 						</Link>
@@ -67,8 +79,17 @@ const Navbar = () => {
 					<DropdownMenu menuName="Lobby">
 						<NavMenuItems items={lobbyItems} />
 					</DropdownMenu>
+
 					<DropdownMenu menuName="Clothing">
 						<NavMenuItems items={clothingItems} />
+					</DropdownMenu>
+
+					<DropdownMenu menuName="Shoes">
+						<NavMenuItems items={shoesItems} />
+					</DropdownMenu>
+
+					<DropdownMenu menuName="Accessories">
+						<NavMenuItems items={accessoriesItems} />
 					</DropdownMenu>
 				</div>
 
@@ -77,6 +98,8 @@ const Navbar = () => {
 						clothingItems={clothingItems}
 						lobbyItems={lobbyItems}
 						closeMenu={setIsMenuOpen}
+						shoesItems={shoesItems}
+						accessoriesItems={accessoriesItems}
 					/>
 				) : null}
 

@@ -9,9 +9,17 @@ type PropsType = {
 	lobbyItems: NavItemType[];
 	clothingItems: NavItemType[];
 	closeMenu: React.Dispatch<React.SetStateAction<boolean>>;
+	shoesItems: NavItemType[];
+	accessoriesItems: NavItemType[];
 };
 
-const FloatingMenu = ({ lobbyItems, clothingItems, closeMenu }: PropsType) => {
+const FloatingMenu = ({
+	lobbyItems,
+	clothingItems,
+	closeMenu,
+	shoesItems,
+	accessoriesItems,
+}: PropsType) => {
 	return createPortal(
 		<div className="fixed left-0 top-0 z-20 h-full w-full bg-primary-header/50 text-white">
 			<div className="flex h-full w-80 max-w-full animate-right-translation flex-col items-center gap-10 bg-primary-header py-6 shadow-sm">
@@ -37,6 +45,22 @@ const FloatingMenu = ({ lobbyItems, clothingItems, closeMenu }: PropsType) => {
 						closeMenu={closeMenu}
 					>
 						<NavMenuItems items={clothingItems} />
+					</DropdownMenu>
+
+					<DropdownMenu
+						menuName="Shoes"
+						isInFloatingMenu={true}
+						closeMenu={closeMenu}
+					>
+						<NavMenuItems items={shoesItems} />
+					</DropdownMenu>
+
+					<DropdownMenu
+						menuName="Accessories"
+						isInFloatingMenu={true}
+						closeMenu={closeMenu}
+					>
+						<NavMenuItems items={accessoriesItems} />
 					</DropdownMenu>
 				</div>
 			</div>

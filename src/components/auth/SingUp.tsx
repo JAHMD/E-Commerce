@@ -123,13 +123,13 @@ const SignUp = () => {
 					) : null}{" "}
 					Sign up
 				</button>
+				<p className="text-center text-sm text-slate-500">
+					Do you have an account?{" "}
+					<Link to="/sign-in" className="font-medium underline">
+						Sign in
+					</Link>
+				</p>
 			</form>
-			<p className="mt-6 text-sm text-slate-500">
-				Do you have an account?{" "}
-				<Link to="/sign-in" className="font-medium underline">
-					Sign in
-				</Link>
-			</p>
 		</section>
 	);
 };

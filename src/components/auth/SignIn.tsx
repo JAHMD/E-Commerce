@@ -109,13 +109,13 @@ const SignIn = () => {
 					) : null}{" "}
 					Submit
 				</button>
+				<p className="text-center text-sm text-slate-500">
+					Don't have an account?{" "}
+					<Link to="/sign-up" className="font-medium underline">
+						Sign up
+					</Link>
+				</p>
 			</form>
-			<p className="mt-6 text-sm text-slate-500">
-				Don't have an account?{" "}
-				<Link to="/sign-up" className="font-medium underline">
-					Sign up
-				</Link>
-			</p>
 			<div className="mt-6 text-slate-500">
 				<p className="flex gap-4">
 					<span className="font-semibold capitalize">username:</span>
