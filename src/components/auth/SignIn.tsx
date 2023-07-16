@@ -48,8 +48,6 @@ const SignIn = () => {
 		}
 	};
 
-	console.log(loginErr);
-
 	useEffect(() => {
 		if (token) {
 			navigate("/user", { replace: true });

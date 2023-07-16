@@ -44,7 +44,7 @@ svg {
 	}
 
 	.link {
-		@apply flex w-full items-center justify-center gap-4 rounded-md bg-primary-footer px-4 py-2 transition-colors hover:bg-primary-headdings hover:text-white sm:w-fit;
+		@apply flex w-full items-center justify-center gap-4 rounded-md bg-primary-footer px-4 py-2 transition-colors hover:bg-slate-300/80 sm:w-fit;
 	}
 
 	.menu_list {

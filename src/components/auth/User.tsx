@@ -51,7 +51,7 @@ const User = () => {
 				<h1 className="text-center text-3xl font-bold text-primary-header/90">
 					Welcome to our store
 				</h1>
-				<div className="mb-6 flex items-center gap-6">
+				<div className="my-6 flex items-center gap-6">
 					<img
 						loading="lazy"
 						src={image}

@@ -1,7 +1,7 @@
 import { Star } from "lucide-react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { ProductType } from "../pages/AllProducts";
 import { addItem } from "../redux/features/cart/cartSlice";
 import { RootState } from "../redux/store/store";
@@ -12,6 +12,7 @@ type PropsType = {
 };
 
 const ProductCard = ({ product }: PropsType) => {
+	const location = useLocation();
 	const { thumbnail, title, price, rating, id } = product;
 
 	const dispatch = useDispatch();
@@ -46,7 +47,11 @@ const ProductCard = ({ product }: PropsType) => {
 
 	return (
 		<article className="overflow-hidden rounded-lg border-2 bg-primary-footer shadow-light">
-			<NavLink to={`/products/${product.id}`} className="group">
+			<NavLink
+				to={`/products/${product.id}`}
+				state={{ path: location.pathname }}
+				className="group"
+			>
 				<div className="relative overflow-hidden">
 					<ImageLoader isImageLoading={isImageLoading} />
 					<div className={`h-32 ${isImageLoading ? "opacity-0" : ""}`}>

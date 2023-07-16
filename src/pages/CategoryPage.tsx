@@ -1,4 +1,3 @@
-import { MoveLeft, MoveRight } from "lucide-react";
 import { useQuery } from "react-query";
 import { NavLink, useParams } from "react-router-dom";
 import LoaderComponent from "../components/Loader";
@@ -40,13 +39,12 @@ const CategoryPage = () => {
 	return (
 		<section className="">
 			<div className="container">
-				<div className="item-center flex flex-wrap justify-between gap-4">
-					<NavLink to=".." className="link">
-						<MoveLeft />
-						All categories
-					</NavLink>
+				<div className="item-center flex flex-wrap justify-between gap-4 font-medium">
 					<NavLink to="/products" className="link">
-						All products <MoveRight />
+						All products
+					</NavLink>
+					<NavLink to=".." className="link">
+						All categories
 					</NavLink>
 				</div>
 				<h1 className="py-6 text-center text-4xl font-bold capitalize text-primary-main-headdings">

@@ -1,7 +1,8 @@
+import { MoveLeft } from "lucide-react";
 import { ChangeEvent, FormEvent, MouseEvent, useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import LoaderComponent from "../components/Loader";
 import { addItem } from "../redux/features/cart/cartSlice";
 import { RootState } from "../redux/store/store";
@@ -11,19 +12,22 @@ const PRODUCT_URL = "https://dummyjson.com/products";
 
 const ProductPage = () => {
 	const { id } = useParams<string>();
-	const cartItems = useSelector((state: RootState) => state.cart.cartItems);
-	const isCartItem = cartItems.find((cartItem) => cartItem.id === Number(id));
+
+	const [qty, setQty] = useState<number>(1);
+	const [disImg, setDisImg] = useState<string | undefined>("");
+
+	const location = useLocation();
+	const path = location.state.path;
 
 	const dispatch = useDispatch();
+	const cartItems = useSelector((state: RootState) => state.cart.cartItems);
+	const isCartItem = cartItems.find((cartItem) => cartItem.id === Number(id));
 
 	const { isLoading, error, data } = useQuery({
 		queryKey: [`product-${id}`],
 		queryFn: (): Promise<ProductType> =>
 			fetch(`${PRODUCT_URL}/${id}`).then((res) => res.json()),
 	});
-
-	const [qty, setQty] = useState<number>(1);
-	const [disImg, setDisImg] = useState<string | undefined>("");
 
 	const bottomImgElements = data?.images.map((img) => (
 		<li className="w-20" key={img}>
@@ -69,13 +73,12 @@ const ProductPage = () => {
 	return (
 		<section className="container">
 			<div className="item-center flex flex-wrap justify-between gap-4">
-				<Link to=".." className="link">
-					All products
-				</Link>
-				<Link to="/categories" className="link">
-					All categories
+				<Link to={path} className="link">
+					<MoveLeft />
+					Back
 				</Link>
 			</div>
+
 			<div className="mt-8 flex flex-col justify-center gap-10 md:flex-row">
 				<div>
 					<img

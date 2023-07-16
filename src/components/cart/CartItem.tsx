@@ -1,5 +1,6 @@
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { useDispatch } from "react-redux";
+import { NavLink } from "react-router-dom";
 import {
 	CartItemType,
 	updateItemQty,
@@ -23,18 +24,23 @@ const CartItem = ({ item }: PropsType) => {
 	};
 
 	return (
-		<article className=" grid grid-cols-6 items-center gap-3 rounded-md bg-white p-3">
-			<img
-				src={thumbnail}
-				alt={`${title} image`}
-				className="col-span-2 h-[90px] w-full rounded-lg object-cover object-center"
-			/>
-			<div className="col-span-3">
-				<h3 className="w-[12rem] max-w-full truncate text-base font-medium capitalize text-primary-header">
-					{title}
-				</h3>
-				<p className="mt-1 text-sm text-slate-600">{disPrice}</p>
-			</div>
+		<article className="grid grid-cols-6 items-center gap-3 rounded-md bg-white p-3">
+			<NavLink
+				to={`/products/${id}`}
+				className="col-span-5 grid grid-cols-5 gap-3"
+			>
+				<img
+					src={thumbnail}
+					alt={`${title} image`}
+					className="col-span-2 h-[90px] w-full rounded-lg object-cover object-center"
+				/>
+				<div className="col-span-3">
+					<h3 className="w-[12rem] max-w-full truncate text-base font-medium capitalize text-primary-header">
+						{title}
+					</h3>
+					<p className="mt-1 text-sm text-slate-600">{disPrice}</p>
+				</div>
+			</NavLink>
 			<div className="ml-auto flex flex-col items-center gap-1">
 				<button
 					className=" flex items-center justify-center rounded-md bg-gray-100 p-0.5 transition-colors hover:bg-gray-200"
