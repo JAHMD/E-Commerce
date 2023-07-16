@@ -1,4 +1,4 @@
-import { Menu, ShoppingCart, User } from "lucide-react";
+import { Menu, Search, ShoppingCart, User } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
@@ -6,6 +6,7 @@ import { RootState } from "../redux/store/store";
 import DropdownMenu from "./DropdownMenu";
 import FloatingMenu from "./FloatingMenu";
 import NavMenuItems from "./NavMenuItems";
+import SearchModal from "./SearchModal";
 import Cart from "./cart/Cart";
 
 export type NavItemType = {
@@ -18,6 +19,7 @@ const Navbar = () => {
 
 	const qty = useSelector((state: RootState) => state.cart.qty);
 	const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+	const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
 	const [isCartOpen, setIsCartOpen] = useState<boolean>(false);
 
 	const lobbyItems: NavItemType[] = [
@@ -104,6 +106,12 @@ const Navbar = () => {
 				) : null}
 
 				<div className="flex w-fit items-center gap-4">
+					<button className="nav_btn" onClick={() => setIsSearchOpen(true)}>
+						<Search />
+					</button>
+					{isSearchOpen ? (
+						<SearchModal setIsSearchOpen={setIsSearchOpen} />
+					) : null}
 					<button
 						ref={cartBtnRef}
 						className="nav_btn relative"
