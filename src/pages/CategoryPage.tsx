@@ -39,7 +39,7 @@ const CategoryPage = () => {
 	return (
 		<section className="">
 			<div className="container">
-				<div className="item-center flex flex-wrap justify-between gap-4 font-medium">
+				<div className="item-center flex flex-wrap justify-between gap-4 font-medium capitalize text-primary-header">
 					<NavLink to="/products" className="link">
 						All products
 					</NavLink>
