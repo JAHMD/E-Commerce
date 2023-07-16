@@ -1,6 +1,6 @@
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { useDispatch } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import {
 	CartItemType,
 	updateItemQty,
@@ -12,6 +12,7 @@ type PropsType = {
 
 const CartItem = ({ item }: PropsType) => {
 	const dispatch = useDispatch();
+	const location = useLocation();
 
 	const { thumbnail, title, price, quantity, id } = item;
 	const disPrice = new Intl.NumberFormat("en-UA", {
@@ -27,6 +28,7 @@ const CartItem = ({ item }: PropsType) => {
 		<article className="grid grid-cols-6 items-center gap-3 rounded-md bg-white p-3">
 			<NavLink
 				to={`/products/${id}`}
+				state={{ path: location.pathname }}
 				className="col-span-5 grid grid-cols-5 gap-3"
 			>
 				<img
