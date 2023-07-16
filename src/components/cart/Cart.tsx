@@ -49,7 +49,7 @@ const Cart = memo(({ setIsCartOpen }: PropsType) => {
 				</div>
 				<ul className="flex flex-col gap-4 overflow-y-auto rounded-md">
 					{cartItems.map((item) => (
-						<CartItem key={item.id} item={item} />
+						<CartItem key={item.id} item={item} setIsCartOpen={setIsCartOpen} />
 					))}
 				</ul>
 				<div className="mt-auto rounded-md bg-slate-300/80 p-4 font-medium text-primary-main-headdings">

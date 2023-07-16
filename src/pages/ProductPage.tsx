@@ -1,5 +1,12 @@
 import { MoveLeft } from "lucide-react";
-import { ChangeEvent, FormEvent, MouseEvent, useEffect, useState } from "react";
+import {
+	ChangeEvent,
+	FormEvent,
+	MouseEvent,
+	useEffect,
+	useRef,
+	useState,
+} from "react";
 import { useQuery } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useParams } from "react-router-dom";
@@ -17,7 +24,8 @@ const ProductPage = () => {
 	const [disImg, setDisImg] = useState<string | undefined>("");
 
 	const location = useLocation();
-	const path = location.state.path;
+	const pathRef = useRef<string>("");
+	console.log(pathRef);
 
 	const dispatch = useDispatch();
 	const cartItems = useSelector((state: RootState) => state.cart.cartItems);
@@ -46,8 +54,9 @@ const ProductPage = () => {
 	}).format(data?.price || 0);
 
 	useEffect(() => {
+		pathRef.current = location.state?.path || "/products";
 		setDisImg(data?.thumbnail);
-	}, [data]);
+	}, [data, pathRef]);
 
 	function handleQtyChange(e: ChangeEvent<HTMLInputElement>) {
 		setQty(e.target.valueAsNumber);
@@ -73,7 +82,7 @@ const ProductPage = () => {
 	return (
 		<section className="container">
 			<div className="item-center flex flex-wrap justify-between gap-4">
-				<Link to={path} className="link">
+				<Link to={pathRef.current} className="link">
 					<MoveLeft />
 					Back
 				</Link>

@@ -8,9 +8,10 @@ import {
 
 type PropsType = {
 	item: CartItemType;
+	setIsCartOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const CartItem = ({ item }: PropsType) => {
+const CartItem = ({ item, setIsCartOpen }: PropsType) => {
 	const dispatch = useDispatch();
 	const location = useLocation();
 
@@ -29,6 +30,7 @@ const CartItem = ({ item }: PropsType) => {
 			<NavLink
 				to={`/products/${id}`}
 				state={{ path: location.pathname }}
+				onClick={() => setIsCartOpen(false)}
 				className="col-span-5 grid grid-cols-5 gap-3"
 			>
 				<img
