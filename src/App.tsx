@@ -1,6 +1,7 @@
+import { useEffect } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { Provider } from "react-redux";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import { store } from "./redux/store/store";
@@ -8,6 +9,12 @@ import { store } from "./redux/store/store";
 const queryClient = new QueryClient();
 
 function App() {
+	const location = useLocation();
+
+	useEffect(() => {
+		window.scrollTo({ top: 0, behavior: "smooth" });
+	}, [location]);
+
 	return (
 		<Provider store={store}>
 			<QueryClientProvider client={queryClient}>

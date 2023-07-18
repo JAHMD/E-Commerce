@@ -25,7 +25,6 @@ const ProductPage = () => {
 
 	const location = useLocation();
 	const pathRef = useRef<string>("");
-	console.log(pathRef);
 
 	const dispatch = useDispatch();
 	const cartItems = useSelector((state: RootState) => state.cart.cartItems);
@@ -56,7 +55,7 @@ const ProductPage = () => {
 	useEffect(() => {
 		pathRef.current = location.state?.path || "/products";
 		setDisImg(data?.thumbnail);
-	}, [data, pathRef]);
+	}, [data, pathRef, location]);
 
 	function handleQtyChange(e: ChangeEvent<HTMLInputElement>) {
 		setQty(e.target.valueAsNumber);
